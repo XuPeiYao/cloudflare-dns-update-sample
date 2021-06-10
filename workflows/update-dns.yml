@@ -1,0 +1,21 @@
+name: Update DNS
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  depoly:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 5
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          export CF_API_EMAIL=${{ secrets.CF_API_EMAIL }}
+          export CF_API_KEY=${{ secrets.CF_API_KEY }}
+          bash main.sh
